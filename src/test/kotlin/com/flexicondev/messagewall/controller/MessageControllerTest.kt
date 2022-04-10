@@ -10,18 +10,21 @@ import org.springframework.test.web.servlet.get
 
 @SpringBootTest
 @AutoConfigureMockMvc
-internal class RootControllerTest {
+internal class MessageControllerTest {
 
     @Autowired
     lateinit var mockMvc: MockMvc
 
+    val baseUrl = "/messages"
+
     @Test
-    fun `should return welcome json`() {
-        mockMvc.get("/")
+    fun `GET should return empty list of messages`() {
+        mockMvc.get(baseUrl)
             .andExpect {
                 status { isOk() }
                 content { contentType(MediaType.APPLICATION_JSON) }
-                jsonPath("$.msg") { value("message-wall api") }
+                jsonPath("$") { isArray() }
+                jsonPath("$") { isEmpty() }
             }
     }
 }
