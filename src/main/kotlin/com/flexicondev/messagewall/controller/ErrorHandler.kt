@@ -20,7 +20,10 @@ class ErrorHandler {
     @ExceptionHandler(MethodArgumentNotValidException::class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     fun handleBadRequest(e: MethodArgumentNotValidException): ErrorResponse =
-        ErrorResponse(e.allErrors.associate { (it as FieldError).field to it.defaultMessage })
+        ErrorResponse(
+            errors = e.allErrors.associate { (it as FieldError).field to it.defaultMessage },
+            message = "Invalid payload",
+        )
 
     @ExceptionHandler(NoSuchElementException::class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
