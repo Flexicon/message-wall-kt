@@ -9,5 +9,5 @@ import org.springframework.web.bind.annotation.RestController
 class RootController {
 
     @GetMapping
-    fun getRoot(): Map<String, String> = mapOf("msg" to "message-wall api")
+    fun getRoot(): Map<String, String> = mapOf("message" to "message-wall api")
 }

@@ -21,7 +21,7 @@ internal class RootControllerTest {
             .andExpect {
                 status { isOk() }
                 content { contentType(MediaType.APPLICATION_JSON) }
-                jsonPath("$.msg") { value("message-wall api") }
+                jsonPath("$.message") { value("message-wall api") }
             }
     }
 }
