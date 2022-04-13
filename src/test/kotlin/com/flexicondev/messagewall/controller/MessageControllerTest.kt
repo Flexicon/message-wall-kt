@@ -88,13 +88,38 @@ internal class MessageControllerTest {
         inner class PostInvalid {
 
             @Test
-            fun `should fail an empty payload`() {
+            fun `should fail with empty payload`() {
                 val payload = "{}"
 
                 // Fail to create message
                 mockMvc.post(baseUrl) {
                     contentType = MediaType.APPLICATION_JSON
                     content = payload
+                    accept = MediaType.APPLICATION_JSON
+                }
+                    .andExpect {
+                        status { isBadRequest() }
+                        jsonPath("$.errors.text") { value("Text is required") }
+                        jsonPath("$.errors.author") { value("Author is required") }
+                    }
+
+                // Check that no message was created
+                mockMvc.get(baseUrl)
+                    .andExpect {
+                        status { isOk() }
+                        content { contentType(MediaType.APPLICATION_JSON) }
+                        jsonPath("$") { isEmpty() }
+                    }
+            }
+
+            @Test
+            fun `should fail with empty fields`() {
+                val payload = mapOf("author" to "", "text" to "")
+
+                // Fail to create message
+                mockMvc.post(baseUrl) {
+                    contentType = MediaType.APPLICATION_JSON
+                    content = objectMapper.writeValueAsString(payload)
                     accept = MediaType.APPLICATION_JSON
                 }
                     .andExpect {
@@ -163,7 +188,40 @@ internal class MessageControllerTest {
     }
 
     @Nested
-    @DisplayName("DELETE /messages")
+    @DisplayName("GET /messages/{id}")
+    @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+    inner class GetMessage {
+        private lateinit var message: Message
+
+        @BeforeEach
+        fun beforeEach() {
+            message = messageRepository.save(Message(text = "Expelliarmus", author = "Harry Potter"))
+        }
+
+        @Test
+        fun `should return existing message`() {
+            mockMvc.get("$baseUrl/${message.id}")
+                .andDo { print() }
+                .andExpect {
+                    status { isOk() }
+                    content { contentType(MediaType.APPLICATION_JSON) }
+                    content { string(objectMapper.writeValueAsString(message)) }
+                }
+        }
+        @Test
+        fun `should fail for a non-existent message`() {
+            val id = "123456dummy"
+
+            mockMvc.get("$baseUrl/$id")
+                .andExpect {
+                    status { isNotFound() }
+                    jsonPath("$.message") { value("Message with id $id not found") }
+                }
+        }
+    }
+
+    @Nested
+    @DisplayName("DELETE /messages/{id}")
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     inner class DeleteMessage {
         private lateinit var message: Message

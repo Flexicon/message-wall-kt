@@ -23,6 +23,9 @@ class MessageController(
     @GetMapping
     fun getMessages(): Collection<Message> = messageService.getMessages()
 
+    @GetMapping("/{id}")
+    fun getMessage(@PathVariable id: String): Message = messageService.getMessage(id)
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun createMessage(@Valid @RequestBody payload: CreateMessagePayload): Message =
@@ -30,6 +33,5 @@ class MessageController(
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun deleteMessage(@PathVariable id: String) =
-        messageService.deleteMessage(id)
+    fun deleteMessage(@PathVariable id: String) = messageService.deleteMessage(id)
 }
