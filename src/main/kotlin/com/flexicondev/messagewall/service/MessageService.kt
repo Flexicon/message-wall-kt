@@ -16,4 +16,9 @@ class MessageService @Autowired constructor(
 
     fun createMessage(text: String, author: String): Message =
         messageRepository.save(Message(text = text, author = author))
+
+    fun deleteMessage(id: String) {
+        if (!messageRepository.existsById(id)) throw NoSuchElementException("Message with id $id not found")
+        messageRepository.deleteById(id)
+    }
 }
