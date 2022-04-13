@@ -1,7 +1,7 @@
 package com.flexicondev.messagewall.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.flexicondev.messagewall.model.MessagePayload
+import com.flexicondev.messagewall.model.CreateMessagePayload
 import com.flexicondev.messagewall.repository.MessageRepository
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -58,7 +58,7 @@ internal class MessageControllerTest {
     inner class CreateMessage {
         @Test
         fun `should create a new message`() {
-            val payload = MessagePayload("Test message", "Johnny Test")
+            val payload = CreateMessagePayload("Test message", "Johnny Test")
 
             mockMvc.post(baseUrl) {
                 contentType = MediaType.APPLICATION_JSON
@@ -93,17 +93,18 @@ internal class MessageControllerTest {
             }
 
             @Test
-            fun `should fail without text field`() {
-                val payload = mapOf("author" to "John", "text" to "")
+            fun `should fail with empty payload`() {
+                val payload = "{}"
 
                 mockMvc.post(baseUrl) {
                     contentType = MediaType.APPLICATION_JSON
-                    content = objectMapper.writeValueAsString(payload)
+                    content = payload
                     accept = MediaType.APPLICATION_JSON
                 }
                     .andExpect {
                         status { isBadRequest() }
-                        content { string("Text is required") }
+                        jsonPath("$.errors.text") { value("Text is required") }
+                        jsonPath("$.errors.author") { value("Author is required") }
                     }
             }
         }
