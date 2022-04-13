@@ -89,21 +89,37 @@ internal class MessageControllerTest {
                 }
                     .andExpect {
                         status { isBadRequest() }
+                        jsonPath("$.errors.text") { value("Text is required") }
+                        jsonPath("$.errors.author") { value("Author is required") }
                     }
             }
 
             @Test
-            fun `should fail with empty payload`() {
-                val payload = "{}"
+            fun `should fail with only author`() {
+                val payload = mapOf("author" to "Ben Kenobi")
 
                 mockMvc.post(baseUrl) {
                     contentType = MediaType.APPLICATION_JSON
-                    content = payload
+                    content = objectMapper.writeValueAsString(payload)
                     accept = MediaType.APPLICATION_JSON
                 }
                     .andExpect {
                         status { isBadRequest() }
                         jsonPath("$.errors.text") { value("Text is required") }
+                    }
+            }
+
+            @Test
+            fun `should fail with only text`() {
+                val payload = mapOf("text" to "Only a Sith deals in absolutes.")
+
+                mockMvc.post(baseUrl) {
+                    contentType = MediaType.APPLICATION_JSON
+                    content = objectMapper.writeValueAsString(payload)
+                    accept = MediaType.APPLICATION_JSON
+                }
+                    .andExpect {
+                        status { isBadRequest() }
                         jsonPath("$.errors.author") { value("Author is required") }
                     }
             }
