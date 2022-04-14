@@ -7,6 +7,6 @@ RUN gradle build -x test
 FROM openjdk:11
 
 WORKDIR /app
-COPY --from=builder /app/src/build/libs/*.jar /app/app.jar
+COPY --from=builder /app/src/build/libs/message-wall-0.0.1.jar /app/app.jar
 
 CMD ["java","-jar","/app/app.jar"]
