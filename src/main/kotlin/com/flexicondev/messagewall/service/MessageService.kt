@@ -1,5 +1,6 @@
 package com.flexicondev.messagewall.service
 
+import com.flexicondev.messagewall.model.CreateMessagePayload
 import com.flexicondev.messagewall.model.Message
 import com.flexicondev.messagewall.repository.MessageRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -18,8 +19,8 @@ class MessageService @Autowired constructor(
     fun getMessage(id: String): Message =
         messageRepository.findByIdOrNull(id) ?: throw NoSuchElementException("Message with id $id not found")
 
-    fun createMessage(text: String, author: String): Message =
-        messageRepository.save(Message(text = text, author = author))
+    fun createMessage(payload: CreateMessagePayload): Message =
+        messageRepository.save(Message(text = payload.text, author = payload.author))
 
     fun deleteMessage(id: String) {
         if (!messageRepository.existsById(id)) throw NoSuchElementException("Message with id $id not found")

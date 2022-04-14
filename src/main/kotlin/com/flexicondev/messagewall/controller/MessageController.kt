@@ -29,7 +29,7 @@ class MessageController(
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun createMessage(@Valid @RequestBody payload: CreateMessagePayload): Message =
-        messageService.createMessage(text = payload.text!!, author = payload.author!!)
+        messageService.createMessage(payload)
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
