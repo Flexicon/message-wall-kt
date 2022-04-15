@@ -1,19 +1,12 @@
 package com.flexicondev.messagewall.controller
 
-import com.fasterxml.jackson.annotation.JsonInclude
-import com.fasterxml.jackson.annotation.JsonInclude.Include
+import com.flexicondev.messagewall.model.ErrorResponse
 import org.springframework.http.HttpStatus
 import org.springframework.validation.FieldError
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestControllerAdvice
-
-@JsonInclude(Include.NON_NULL)
-data class ErrorResponse(
-    val errors: Map<String, String?>? = null,
-    val message: String? = null,
-)
 
 @RestControllerAdvice
 class ErrorHandler {
