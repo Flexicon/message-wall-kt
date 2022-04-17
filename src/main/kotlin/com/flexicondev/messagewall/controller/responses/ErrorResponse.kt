@@ -1,4 +1,4 @@
-package com.flexicondev.messagewall.model
+package com.flexicondev.messagewall.controller.responses
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonInclude.Include
