@@ -1,4 +1,4 @@
-package com.flexicondev.messagewall.domain
+package com.flexicondev.messagewall.domain.message
 
 interface MessageRepository {
 

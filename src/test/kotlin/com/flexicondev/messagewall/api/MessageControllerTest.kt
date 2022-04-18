@@ -2,9 +2,9 @@ package com.flexicondev.messagewall.api
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.flexicondev.messagewall.api.http.mappers.MessageResponseMapper
-import com.flexicondev.messagewall.domain.MessageRepository
+import com.flexicondev.messagewall.domain.message.MessageRepository
 import com.flexicondev.messagewall.api.http.requests.CreateMessageRequest
-import com.flexicondev.messagewall.domain.Message
+import com.flexicondev.messagewall.domain.message.Message
 import org.junit.jupiter.api.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc

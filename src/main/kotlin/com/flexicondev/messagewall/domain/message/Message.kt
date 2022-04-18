@@ -1,4 +1,4 @@
-package com.flexicondev.messagewall.domain
+package com.flexicondev.messagewall.domain.message
 
 import org.bson.types.ObjectId
 import org.springframework.data.annotation.Id

@@ -1,7 +1,7 @@
 package com.flexicondev.messagewall.usecases.message.create
 
-import com.flexicondev.messagewall.domain.Message
-import com.flexicondev.messagewall.domain.MessageRepository
+import com.flexicondev.messagewall.domain.message.Message
+import com.flexicondev.messagewall.domain.message.MessageRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 

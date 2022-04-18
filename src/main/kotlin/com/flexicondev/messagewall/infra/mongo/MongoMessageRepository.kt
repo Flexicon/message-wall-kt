@@ -1,7 +1,7 @@
 package com.flexicondev.messagewall.infra.mongo
 
-import com.flexicondev.messagewall.domain.MessageRepository
-import com.flexicondev.messagewall.domain.Message
+import com.flexicondev.messagewall.domain.message.MessageRepository
+import com.flexicondev.messagewall.domain.message.Message
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.data.domain.Sort
