@@ -1,6 +1,6 @@
-package com.flexicondev.messagewall.controller
+package com.flexicondev.messagewall.api.http
 
-import com.flexicondev.messagewall.controller.responses.ErrorResponse
+import com.flexicondev.messagewall.api.http.responses.ErrorResponse
 import org.springframework.http.HttpStatus
 import org.springframework.validation.FieldError
 import org.springframework.web.bind.MethodArgumentNotValidException

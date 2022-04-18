@@ -1,9 +1,10 @@
-package com.flexicondev.messagewall.controller
+package com.flexicondev.messagewall.api
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.flexicondev.messagewall.model.CreateMessagePayload
-import com.flexicondev.messagewall.model.Message
-import com.flexicondev.messagewall.repository.MessageRepository
+import com.flexicondev.messagewall.api.http.mappers.MessageResponseMapper
+import com.flexicondev.messagewall.domain.message.MessageRepository
+import com.flexicondev.messagewall.api.http.requests.CreateMessageRequest
+import com.flexicondev.messagewall.domain.message.Message
 import org.junit.jupiter.api.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
@@ -56,7 +57,7 @@ internal class MessageControllerTest {
     inner class CreateMessage {
         @Test
         fun `should create a new message`() {
-            val payload = CreateMessagePayload("Test message", "Johnny Test")
+            val payload = CreateMessageRequest("Test message", "Johnny Test")
 
             // Create message
             mockMvc.post(baseUrl) {
@@ -200,12 +201,14 @@ internal class MessageControllerTest {
 
         @Test
         fun `should return existing message`() {
+            val messageResponse = MessageResponseMapper.toResponse(message)
+
             mockMvc.get("$baseUrl/${message.id}")
                 .andDo { print() }
                 .andExpect {
                     status { isOk() }
                     content { contentType(MediaType.APPLICATION_JSON) }
-                    content { string(objectMapper.writeValueAsString(message)) }
+                    content { string(objectMapper.writeValueAsString(messageResponse)) }
                 }
         }
         @Test
