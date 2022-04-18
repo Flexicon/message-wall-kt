@@ -1,4 +1,4 @@
-package com.flexicondev.messagewall.controller
+package com.flexicondev.messagewall.api
 
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
