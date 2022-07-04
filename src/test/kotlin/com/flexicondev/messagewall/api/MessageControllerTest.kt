@@ -2,10 +2,14 @@ package com.flexicondev.messagewall.api
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.flexicondev.messagewall.api.http.mappers.MessageResponseMapper
-import com.flexicondev.messagewall.domain.message.MessageRepository
 import com.flexicondev.messagewall.api.http.requests.CreateMessageRequest
 import com.flexicondev.messagewall.domain.message.Message
-import org.junit.jupiter.api.*
+import com.flexicondev.messagewall.domain.message.MessageRepository
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Nested
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
