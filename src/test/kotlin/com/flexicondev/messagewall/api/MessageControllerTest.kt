@@ -18,9 +18,11 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.delete
 import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.post
+import org.testcontainers.junit.jupiter.Testcontainers
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@Testcontainers
 internal class MessageControllerTest {
 
     @Autowired

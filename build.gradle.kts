@@ -19,6 +19,7 @@ repositories {
 }
 
 dependencies {
+    // Spring dependency platform
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -26,6 +27,11 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+    // Test containers
+    val testContainersVersion = "1.17.3"
+    testImplementation("org.testcontainers:junit-jupiter:$testContainersVersion")
+    testImplementation("org.testcontainers:mongodb:$testContainersVersion")
 }
 
 tasks.withType<KotlinCompile> {
