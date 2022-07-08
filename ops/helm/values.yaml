@@ -1,0 +1,56 @@
+replicaCount: 1
+
+image:
+  repository: "docker.io/library/message-wall"
+  pullPolicy: IfNotPresent
+  tag: "" # possible override - if blank, defaults to chart appVersion
+  env:
+    - name: "MONGODB_URI"
+      value: "mongodb+srv://message-wall-mongodb.namespace.svc.cluster.local/?tls=false&ssl=false"
+
+container:
+  port: 8080
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+service:
+  type: NodePort
+  port: 80
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+
+resources: {}
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
