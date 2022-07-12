@@ -53,3 +53,7 @@ tasks.withType<KotlinCompile> {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
+tasks.generateJooqClasses {
+    outputDirectory.set(project.file("src/main/java/generated-jooq"))
+}
