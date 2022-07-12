@@ -1,9 +1,9 @@
 version: '3'
 services:
-  mongodb:
-    image: mongo:5.0
+  postgres:
+    image: postgres:14.4-alpine
     environment:
-      MONGO_INITDB_ROOT_USERNAME: dev
-      MONGO_INITDB_ROOT_PASSWORD: dev
+      POSTGRES_PASSWORD: dev
+      POSTGRES_DB: message_wall
     ports:
-      - "27017:27017"
+      - "5432:5432"

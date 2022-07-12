@@ -33,7 +33,7 @@ class MessageController(
         findAllUseCase.call().map(MessageResponseMapper::toResponse)
 
     @GetMapping("/{id}")
-    fun getMessage(@PathVariable id: String): MessageResponse =
+    fun getMessage(@PathVariable id: Int): MessageResponse =
         MessageResponseMapper.toResponse(findUseCase.call(id))
 
     @PostMapping
@@ -45,5 +45,5 @@ class MessageController(
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun deleteMessage(@PathVariable id: String) = deleteUseCase.call(id)
+    fun deleteMessage(@PathVariable id: Int) = deleteUseCase.call(id)
 }

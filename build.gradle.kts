@@ -8,6 +8,7 @@ plugins {
     id("org.springframework.boot") version "2.6.6"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     id("org.jlleitschuh.gradle.ktlint") version "10.3.0"
+    id("com.revolut.jooq-docker") version "0.3.7"
 }
 
 group = "com.flexicondev"
@@ -19,24 +20,32 @@ repositories {
 }
 
 dependencies {
+    kotlin("reflect")
+    kotlin("stdlib-jdk8")
+
     // Spring dependency platform
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
+    implementation("org.springframework.boot:spring-boot-starter-jooq")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+    // Database
+    val postgresVersion = "42.4.0"
+    jdbc("org.postgresql:postgresql:$postgresVersion")
+    runtimeOnly("org.postgresql:postgresql:$postgresVersion")
+    implementation("org.jooq:jooq:3.16.6")
+    implementation("org.flywaydb:flyway-core:8.5.13")
 
     // Test containers
     val testContainersVersion = "1.17.3"
     testImplementation("org.testcontainers:junit-jupiter:$testContainersVersion")
-    testImplementation("org.testcontainers:mongodb:$testContainersVersion")
+    testImplementation("org.testcontainers:postgresql:$testContainersVersion")
 }
 
 tasks.withType<KotlinCompile> {
     kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict")
+        freeCompilerArgs = freeCompilerArgs + listOf("-Xjsr305=strict")
         jvmTarget = "11"
     }
 }

@@ -1,6 +1,7 @@
 package com.flexicondev.messagewall.api
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.flexicondev.messagewall.MessageWallSpringTest
 import com.flexicondev.messagewall.api.http.mappers.MessageResponseMapper
 import com.flexicondev.messagewall.api.http.requests.CreateMessageRequest
 import com.flexicondev.messagewall.domain.message.Message
@@ -12,17 +13,14 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
-import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.delete
 import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.post
-import org.testcontainers.junit.jupiter.Testcontainers
 
-@SpringBootTest
+@MessageWallSpringTest
 @AutoConfigureMockMvc
-@Testcontainers
 internal class MessageControllerTest {
 
     @Autowired
@@ -219,7 +217,7 @@ internal class MessageControllerTest {
         }
         @Test
         fun `should fail for a non-existent message`() {
-            val id = "123456dummy"
+            val id = 123456
 
             mockMvc.get("$baseUrl/$id")
                 .andExpect {
@@ -258,7 +256,7 @@ internal class MessageControllerTest {
         }
         @Test
         fun `should fail for a non-existent message`() {
-            val id = "123456dummy"
+            val id = 123456
 
             // Attempt to delete non-existent message
             mockMvc.delete("$baseUrl/$id")

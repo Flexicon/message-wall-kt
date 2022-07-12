@@ -1,14 +1,11 @@
 package com.flexicondev.messagewall.domain.message
 
-import org.bson.types.ObjectId
-import org.springframework.data.annotation.Id
-import org.springframework.data.mongodb.core.mapping.Document
-import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 
-@Document(collection = "messages")
 data class Message(
-    @Id val id: ObjectId = ObjectId.get(),
+    val id: Int? = null,
     val text: String,
     val author: String,
-    val timestamp: Instant = Instant.now(),
+    val createdAt: LocalDateTime = LocalDateTime.now(ZoneOffset.UTC),
 )

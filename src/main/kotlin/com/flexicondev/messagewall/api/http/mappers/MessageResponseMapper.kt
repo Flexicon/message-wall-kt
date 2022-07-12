@@ -2,6 +2,7 @@ package com.flexicondev.messagewall.api.http.mappers
 
 import com.flexicondev.messagewall.api.http.responses.MessageResponse
 import com.flexicondev.messagewall.domain.message.Message
+import java.time.ZoneOffset
 
 class MessageResponseMapper {
     companion object {
@@ -10,7 +11,7 @@ class MessageResponseMapper {
                 message.id.toString(),
                 message.text,
                 message.author,
-                message.timestamp,
+                message.createdAt.toInstant(ZoneOffset.UTC),
             )
     }
 }
