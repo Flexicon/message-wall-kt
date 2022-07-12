@@ -9,7 +9,7 @@ class DeleteMessageUseCase(
     @Autowired val messageRepository: MessageRepository
 ) {
 
-    fun call(id: String) {
+    fun call(id: Int) {
         if (!messageRepository.existsBy(id)) throw NoSuchElementException("Message with id $id not found")
 
         messageRepository.deleteBy(id)

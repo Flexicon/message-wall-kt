@@ -10,6 +10,6 @@ class FindMessageUseCase(
     @Autowired val messageRepository: MessageRepository
 ) {
 
-    fun call(id: String): Message =
+    fun call(id: Int): Message =
         messageRepository.findBy(id) ?: throw NoSuchElementException("Message with id $id not found")
 }
