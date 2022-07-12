@@ -31,8 +31,9 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 
     // Database
-    jdbc("org.postgresql:postgresql:42.4.0")
-    runtimeOnly("org.postgresql:postgresql:42.4.0")
+    val postgresVersion = "42.4.0"
+    jdbc("org.postgresql:postgresql:$postgresVersion")
+    runtimeOnly("org.postgresql:postgresql:$postgresVersion")
     implementation("org.jooq:jooq:3.16.6")
     implementation("org.flywaydb:flyway-core:8.5.13")
 
