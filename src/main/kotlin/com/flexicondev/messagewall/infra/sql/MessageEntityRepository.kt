@@ -58,12 +58,12 @@ class MessageEntityRepository(val dsl: DSLContext) : MessageRepository {
             .fetchOneInto(MESSAGES)!!
             .toModel()
 
-    private fun updateMessage(message: Message): Message {
+    private fun updateMessage(message: Message): Message =
         dsl.update(MESSAGES)
             .set(MESSAGES.TEXT, message.text)
             .set(MESSAGES.AUTHOR, message.author)
             .set(MESSAGES.CREATED_AT, message.createdAt)
-
-        return message
-    }
+            .returningResult(columns())
+            .fetchOneInto(MESSAGES)!!
+            .toModel()
 }
