@@ -2,7 +2,7 @@ FROM gradle:7-jdk11 AS builder
 
 COPY --chown=gradle:gradle . /app/src
 WORKDIR /app/src
-RUN gradle bootJar
+RUN ./gradlew bootJar -x generateJooqClasses
 
 FROM openjdk:11
 
