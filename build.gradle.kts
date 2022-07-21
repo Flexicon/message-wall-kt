@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
     val kotlinVersion = "1.7.10"
@@ -43,17 +44,23 @@ dependencies {
     testImplementation("org.testcontainers:postgresql:$testContainersVersion")
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs = freeCompilerArgs + listOf("-Xjsr305=strict")
-        jvmTarget = "11"
+tasks {
+    withType<KotlinCompile> {
+        kotlinOptions {
+            freeCompilerArgs = freeCompilerArgs + listOf("-Xjsr305=strict")
+            jvmTarget = "11"
+        }
     }
-}
 
-tasks.withType<Test> {
-    useJUnitPlatform()
-}
+    withType<Test> {
+        useJUnitPlatform()
+    }
 
-tasks.generateJooqClasses {
-    outputDirectory.set(project.file("src/main/java/generated-jooq"))
+    generateJooqClasses {
+        outputDirectory.set(project.file("src/main/java/generated-jooq"))
+    }
+
+    withType<BootJar> {
+        this.archiveFileName.set("message-wall.jar")
+    }
 }
