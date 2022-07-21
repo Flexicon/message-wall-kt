@@ -61,6 +61,6 @@ tasks {
     }
 
     withType<BootJar> {
-        this.archiveFileName.set("message-wall.jar")
+        archiveFileName.set("${project.name}.jar")
     }
 }
