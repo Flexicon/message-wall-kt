@@ -5,7 +5,7 @@ WORKDIR /app/src
 RUN ./gradlew bootJar -x generateJooqClasses
 
 # =============================================================================
-FROM eclipse-temurin:11-jre AS RUNNER
+FROM eclipse-temurin:17-jre AS RUNNER
 
 WORKDIR /app
 COPY --from=builder /app/src/build/libs/message-wall.jar /app/app.jar
